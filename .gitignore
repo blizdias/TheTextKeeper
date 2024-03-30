@@ -41,6 +41,7 @@ build/Release
 # User files and folders
 app/src/users.json
 dist/
+electron/textData.json
 
 # Dependency directories
 node_modules/

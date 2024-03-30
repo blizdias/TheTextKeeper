@@ -1,12 +1,16 @@
 const { app, BrowserWindow, ipcMain, clipboard, dialog, nativeImage } = require('electron');
 const path = require('path');
-const fs = require('fs').promises; 
+const fs = require('fs');
+const fsPromises = require('fs').promises;
 const { verifyUser, createUser } = require('../src/user-service');
 const { readFile } = require('fs');
 const isDevelopment = process.env.NODE_ENV === "development";
 
-const textsFilePath = path.join(__dirname, './resources/textsData.json'); 
+const textsFilePath = path.join(app.getPath('userData'), 'textsData.json'); 
 
+if (!fs.existsSync(textsFilePath)) {
+    fs.writeFileSync(textsFilePath, '[]', 'utf8');
+}
 
 function createWindow() {
 
@@ -41,10 +45,10 @@ function createWindow() {
 
 async function initializeTextsFile() {
     try {
-      await fs.access(textsFilePath);  
+      await fsPromises.access(textsFilePath);  
     } catch (error) {
       if (error.code === 'ENOENT') {
-        await fs.writeFile(textsFilePath, JSON.stringify([]));
+        await fsPromises.writeFile(textsFilePath, JSON.stringify([]));
       } else {
         throw error;
       }
@@ -90,7 +94,7 @@ ipcMain.handle('login', async (event, username, password) => {
 
 ipcMain.handle('get-texts', async (event)=>{
     try {
-        const rawData = await fs.readFile(textsFilePath, 'utf-8');
+        const rawData = await fsPromises.readFile(textsFilePath, 'utf-8');
         const data = JSON.parse(rawData);
         console.log(data);
         return data;    
@@ -109,11 +113,11 @@ ipcMain.handle('save-text', async (event, { id, title, text }) => {
         });
         return { status: 'empty-title' };
     } else {
-        const texts = JSON.parse(await fs.readFile(textsFilePath, 'utf-8'));
+        const texts = JSON.parse(await fsPromises.readFile(textsFilePath, 'utf-8'));
         const textIndex = texts.findIndex(t => t.id === id);
         if (textIndex !== -1) {
             texts[textIndex] = { id, title, text };
-            await fs.writeFile(textsFilePath, JSON.stringify(texts, null, 2));
+            await fsPromises.writeFile(textsFilePath, JSON.stringify(texts, null, 2));
             return { status: 'success' };
         }       
         return { status: 'not-found' };
@@ -122,11 +126,11 @@ ipcMain.handle('save-text', async (event, { id, title, text }) => {
   
 // Handler to add a new text
 ipcMain.handle('add-text', async (event, { title, text }) => {
-    const texts = JSON.parse(await fs.readFile(textsFilePath, 'utf-8'));
+    const texts = JSON.parse(await fsPromises.readFile(textsFilePath, 'utf-8'));
     const newId = texts.length > 0 ? String(Number(texts[texts.length - 1].id) + 1) : '1';
     const newText = { id: newId, title, text };
     texts.push(newText);
-    await fs.writeFile(textsFilePath, JSON.stringify(texts, null, 2));
+    await fsPromises.writeFile(textsFilePath, JSON.stringify(texts, null, 2));
     return newText;
 });
 

@@ -41,13 +41,18 @@
       "buildResources": "resources"
     },
     "win": {
+      "icon": "resources/icon.ico",
       "defaultArch": "x64",
       "target": [
         "nsis",
         "msi"
       ]
     },
+    "mac": {
+      "icon": "resources/icon.icns"
+    },
     "linux": {
+      "icon": "resources/icon.png",
       "target": [
         "deb",
         "rpm",
