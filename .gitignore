@@ -39,7 +39,6 @@ bower_components
 build/Release
 
 # User files and folders
-electron/resources/textsData.json
 app/src/users.json
 dist/
 
