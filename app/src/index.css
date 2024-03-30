@@ -1,0 +1,104 @@
+html,
+body {
+    background-color: white;
+}
+
+/* Vars */
+
+:root {
+
+    /* General Sizes */
+    --size-xs: 8px;
+    --size-s: 12px;
+    --size-m: 16px;
+    --size-l: 20px;
+    --size-xl: 24px;
+    --size-xxl: 32px;
+
+    /* Font Sizes */
+    --font-size-s: 12px;
+    --font-size-m: 16px;
+    --font-size-l: 20px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+}
+
+
+/* Paddings & Margins */
+
+.padding-s {
+    padding: var(--size-s);
+}
+.padding-m {
+    padding: var(--size-m);
+}
+.padding-l {
+    padding: var(--size-l);
+}
+.padding-xl {
+    padding: var(--size-xl);
+}
+
+.margin-s {
+    margin: var(--size-s);
+}
+.margin-m {
+    margin: var(--size-m);
+}
+.margin-l {
+    margin: var(--size-l);
+}
+.margin-xl {
+    margin: var(--size-xl);
+}
+
+/* Font Sizes */
+
+.font-size-s {
+    font-size: var(--font-size-s);
+}
+.font-size-m {
+    font-size: var(--font-size-m);
+}
+.font-size-l {
+    font-size: var(--font-size-l);
+}
+.font-size-xl {
+    font-size: var(--font-size-xl);
+}
+.font-size-xxl {
+    font-size: var(--font-size-xxl);
+}
+
+/* Buttons Classes */
+
+.button-1 {
+    background-color: #EA4C89;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-1:hover {
+    background-color: #F082AC;
+}

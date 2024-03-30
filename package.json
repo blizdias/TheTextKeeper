@@ -1,0 +1,70 @@
+{
+  "name": "thetextkeeper",
+  "version": "0.0.1",
+  "description": "Application to retrive and store texts for the user locally",
+  "main": "app/electron/main.js",
+  "private": true,
+  "devDependencies": {
+    "babel-loader": "^9.1.3",
+    "concurrently": "^8.2.2",
+    "copy-webpack-plugin": "^12.0.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.10.0",
+    "electron": "^28.2.2",
+    "electron-builder": "^24.9.1",
+    "html-loader": "^5.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^3.3.4",
+    "wait-on": "^7.2.0",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.10.0"
+  },
+  "scripts": {
+    "start-react": "webpack serve --mode development --config ./webpack.development.js",
+    "start-electron": "cross-env NODE_ENV=development electron .",
+    "dev": "concurrently \"npm run start-react\" \"wait-on http://localhost:40992 && npm run start-electron\"",
+    "preprod": "webpack --mode production --config ./webpack.production.js",
+    "prod": "cross-env NODE_ENV=production electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "npm run preprod && electron-builder",
+    "dist-mac": "npm run preprod && electron-builder --mac",
+    "dist-linux": "npm run preprod && electron-builder --linux",
+    "dist-windows": "npm run preprod && electron-builder --windows"
+  },
+  "build": {
+    "productName": "thetextkeeper",
+    "appId": "thetextkeeper.brunoliz",
+    "directories": {
+      "buildResources": "resources"
+    },
+    "win": {
+      "defaultArch": "x64",
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ]
+    }
+  },
+  "keywords": [],
+  "author": "Bruno Liz",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "bcrypt": "^5.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
